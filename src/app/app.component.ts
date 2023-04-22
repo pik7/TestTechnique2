@@ -19,7 +19,7 @@ export class AppComponent implements OnInit{
   errorMessage!:string;
 
   currentPage:number = 0;
-  sizePage:number = 4;
+  sizePage:number = 9;
   totalPages :number = 0;
   currentAction:string = "all";
   
