@@ -1,0 +1,85 @@
+<div class="container"> 
+    {{totalPages}}  
+<div *ngIf="payLoade"> 
+    <div class="my-4">
+        <h5>All requests</h5>
+    </div>
+    
+    <form class="row" [formGroup]="filterGroup" (submit)="handleFilter()">
+            <div class="col-1">
+                FILTER
+            </div>
+            <div class="col-2">
+                <input type="text" formControlName="nameCampaign" class="form-control bg-input-box" id="namecamp"  >
+            </div>
+            <div class="col-2">
+                <select formControlName="brandSearch" class="form-select bg-input-box">
+                    <option value="" selected>-Brand-</option>
+                    <option *ngFor="let b of brands" value={{b.name}}>
+                        {{b.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-1 offset-6">
+                <button class="btn btn-dark-blue" type="submit">FILTER</button>
+            </div>
+        </form>
+    <div class="mt-5 d-flex">
+        <div class="col-1">Status</div>
+        <div class="col-4">Name</div>
+        <div class="col-2">Type</div>
+        <div class="col-2">Brand</div>
+        <div class="col-2">Subscription</div>
+        <div class="col-1"></div>
+    </div>
+
+    <div *ngFor="let req of payLoade.requests" class="mt-4 d-flex campagne-bg rounded p-3" id="{{req.requestId}}" (click)="handleModify(divCampaign)" #divCampaign>
+        <ng-container *ngIf="req.requestStatus.requestStatusId==1; else status2">
+            <div class="col-1 border-end border-secondary align-self-center text-center text-danger" style="font-size: small;"><i class="bi bi-x-circle text-danger" style="font-size: 2rem;" ></i><br/>Draft</div>
+        </ng-container>
+        <ng-template #status2>
+            <ng-container *ngIf="req.requestStatus.requestStatusId==2; else status3">
+                <div class="col-1 border-end border-secondary align-self-center text-center text-danger" style="font-size: small;"><i class="bi bi-x-circle text-danger" style="font-size: 2rem;" ></i><br/>Rejected</div>
+            </ng-container>
+            <ng-template #status3>
+                <ng-container *ngIf="req.requestStatus.requestStatusId==3; else status4">
+                    <div class="col-1 border-end border-secondary align-self-center text-center" style="font-size: small;"><i class="bi bi-hourglass" style="font-size: 2rem;" ></i><br/>Pending</div>
+                </ng-container>
+                <ng-template #status4>
+                    <ng-container *ngIf="req.requestStatus.requestStatusId==4; else status5">
+                        <div class="col-1 border-end border-secondary align-self-center text-center" style="font-size: small;"><i class="bi bi-hourglass" style="font-size: 2rem;" ></i><br/>Pending</div>
+                    </ng-container>
+                    <ng-template #status5>
+                        <ng-container *ngIf="req.requestStatus.requestStatusId==5; else status6"> 
+                            <div class="col-1 border-end border-secondary align-self-center text-center" style="font-size: small;"><i class="bi bi-hourglass" style="font-size: 2rem;" ></i><br/>Panel review</div>
+                        </ng-container>
+                        <ng-template #status6>
+                            <div class="col-1 border-end border-secondary align-self-center text-center text-success" style="font-size: small;"><i class="bi bi-check-circle text-success" style="font-size: 2rem;" ></i><br/>Validated</div>
+                        </ng-template>
+                    </ng-template>
+                </ng-template>
+            </ng-template>
+        </ng-template>
+        <div class="col-4 ms-3 align-self-center" style="font-size: small;">{{req.campaignName}}</div>
+        <ng-container *ngIf="!req.advice; else notAdive">   
+            <div class="col-2 align-self-center" style="font-size: small;"><span class="badge bg-secondary">Request</span></div>
+        </ng-container>
+        <ng-template #notAdive>
+            <div class="col-2 align-self-center" style="font-size: small;"><span class="badge bg-danger">Advice</span></div>
+        </ng-template>
+        <div class="col-2 align-self-center">{{req.brand.name}}</div>
+        <div class="col-2 align-self-center" style="font-size: small;">{{req.submittedDate | date}}</div>
+        <div class="col-1 align-self-center">
+            <i class="bi bi-chevron-right" style="font-size: 2rem;" ></i>
+        </div>
+    </div>
+    <nav aria-label="..." class="mt-3">
+        <ul class="pagination justify-content-center">
+          <li class="page-item ms-2" *ngFor="let p of [].constructor(totalPages); let i=index"><a class="btn btn-info rounded-circle" (click)="gotoNextPage(i)">{{i+1}}</a></li>
+        </ul>
+      </nav>
+<router-outlet></router-outlet>
+
+
+</div>
+</div>

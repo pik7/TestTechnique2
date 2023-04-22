@@ -1,0 +1,66 @@
+<div class="container"> 
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="updateModalLabel"></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="returnToCampaign()"></button>
+            </div>
+            <div class="modal-body">
+                
+
+                <span style="display: none;">{{brands.length| json}}</span>  
+                <!--<div class="col-10 offset-1">-->
+                    <form class="row mt-4" [formGroup]="modifyFormGroup" (submit)="handleModifyCampaign()">
+                            <div class="col-2">
+                                Brand*
+                            </div>
+                            <div class="col-10">
+                                <select formControlName="brandName" class="form-select bg-input-box">
+                                    <option *ngFor="let b of brands" value="{{b.name}}">
+                                        {{b.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-12 mt-5">
+                                <label>Campaign name*</label>
+                                <input formControlName="campainName" type="text" class="form-control bg-input-box">
+                            </div>
+                            <div class="col-12 mt-5">
+                                <label>Media*</label>
+                            </div>
+                            
+                           <!--<div class="col-6" *ngFor="let mediaItem of modifyFormGroup.get('media')?.value; let i=index">
+                                <label><input type="checkbox" [formControl]="mediaItem">{{mediaControl[i]}}</label>
+                            </div>
+                            <div class="col-6" *ngFor="let med of mediaControl; let i=index">
+                                <label><input type="checkbox" name="med">{{med}}</label>
+                            </div>-->
+
+                            <div class="col-6" *ngFor="let med of mediaControl; let i=index" formArrayName="media">
+                                <label><input type="checkbox" [formControlName]="i" >{{med}}</label>
+                            </div>
+                            
+                            <div class="col-12 mt-5">
+                                <label>Deadline for decision *</label>
+                                <input  type="date" formControlName="dateLineDecision" class="form-control bg-input-box" value="2018-07-22">
+
+                            </div> 
+                            <div class="col-6 mt-3">
+                                <button class="btn btn-info" data-bs-dismiss="modal" type="submit">Update</button>
+                            </div>
+                    </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+
+
+</div>
+
+
+

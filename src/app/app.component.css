@@ -1,0 +1,16 @@
+
+.bg-input-box{
+    background-color: rgb(234, 234, 241);
+}
+.btn-dark-blue{
+    background-color: darkblue;
+    color: aliceblue;
+}
+
+.campagne-bg{
+    background-color: rgb(196, 220, 244);
+}
+
+.campagne-bg:hover{
+    background-color: rgb(186, 215, 245);
+}
